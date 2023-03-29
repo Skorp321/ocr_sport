@@ -4,8 +4,4 @@ workenv
 checkpoint-*
 for_think.ipynb
 test.ipynb
-anno_first.csv
-anno_second.csv
-anno_basketball.csv
-anno_fiba.csv
-anno_ncaa.csv
+anno_*

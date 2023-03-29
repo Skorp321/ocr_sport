@@ -4,9 +4,13 @@ workenv
 checkpoint-*
 for_think.ipynb
 test.ipynb
+<<<<<<< HEAD
 anno_first.csv
 anno_second.csv
 anno_basketball.csv
 anno_fiba.csv
 anno_ncaa.csv
 model
+=======
+anno_*
+>>>>>>> 7bbe5390ab9ff91def3b722a1932d6fea4537970

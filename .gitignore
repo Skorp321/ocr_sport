@@ -1,4 +1,4 @@
-crops
+crops*
 data
 workenv
 checkpoint-*
@@ -6,3 +6,8 @@ for_think.ipynb
 test*
 anno_*
 model
+test_*
+runs
+numbers
+for_test
+for_train

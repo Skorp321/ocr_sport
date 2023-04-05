@@ -5,9 +5,11 @@ checkpoint-*
 for_think.ipynb
 test*
 anno_*
-model
+model*
 test_*
 runs
 numbers
 for_test
 for_train
+.env
+.vscode

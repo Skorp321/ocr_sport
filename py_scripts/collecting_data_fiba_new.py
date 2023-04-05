@@ -1,32 +1,34 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import xml.etree.ElementTree as ET
 from PIL import Image
 import os
 import pandas as pd
 import numpy as np
 import json
 from tqdm import tqdm
-import math
+
 
 anno_pathes_json = []
 file_name = ".json"
 
-# For home
-absolute_path = "data\\TV_data\\basketball"
-crop_path = "numbers\\basketball_numbers"
-
-# For laptop
-# absolute_path = 'D:\\Datasets\\TV_data'
-# crop_path = 'D:\\Datasets\\basketball_numbers'
-
-alpha = 0.2
+alpha = 0.1
 num = 0
 annos_list = []
 anno_dict = {"file_name": [], "text": []}
 pathes_list = []
 
-print("Collecting data tv basketball json!")
+
+# For home
+absolute_path = "data\\FIBA3x3\\20-03-2023\\anno"
+crop_path = "numbers\\streetball_numbers"
+
+# For laptop
+# absolute_path = 'D:\\Datasets\\TV_data\\volleyball\\00-00-00'
+# crop_path = 'D:\\Datasets\\crops1'
+
+print("Collecting data fiba new!")
 if not os.path.exists(crop_path):
     os.makedirs(crop_path)
 
@@ -42,43 +44,37 @@ for anno in tqdm(anno_pathes_json):
         data = json.load(f)
 
     # Преобразуем json  в dataFrame
-    points = pd.read_json(json.dumps(data["shapes"]))
+    frames = pd.read_json(json.dumps(data))
 
-    x = pd.read_json(anno, orient="index")
-    frame = x.iloc[3, :][0]
-    frame = frame.replace(".", "-")
+    for frame in frames["frames"]:
 
-    img_path = anno.replace("anno", "frames")
-    img_path = img_path.replace(".json", ".jpeg")
-    img_path = img_path.replace("BallerTV", "TV_data")
-    img = Image.open(img_path)
+        img_name = frame["img_name"]
+        anno_path = anno.replace(".json", "")
+        anno_path = anno_path.replace("anno", "jersey_frames")
+        jpg_path = os.path.join(anno_path, img_name)
 
-    for j in range(len(points)):
-        out_file = {}
-        point_obj = pd.DataFrame(points.iloc[j, 0:2])
-        point = point_obj.iloc[1, :]
-        label = point_obj.iloc[0, :]
-        split_label = label[j].split("_")
-        number = split_label[-1]
+        img = Image.open(jpg_path)
 
-        for box in point:
+        for det in frame["detections"]:
+            if det["ocr_jersey"] != "-1":
 
-            if number.isdigit() & (len(split_label) == 3):
+                point = det["jersey_bbox_global"]
+                number = det["ocr_jersey"]
 
                 xtl, ytl, xbr, ybr = (
-                    int(box[0][0]),
-                    int(box[0][1]),
-                    int(box[1][0]),
-                    int(box[1][1]),
+                    int(point[0]),
+                    int(point[1]),
+                    int(point[2]),
+                    int(point[3]),
                 )
 
                 x_dif = np.abs(xtl - xbr)
                 y_dif = np.abs(ytl - ybr)
 
-                xtl = int(xtl - math.ceil(alpha * (x_dif / 2)))
-                xbr = int(xbr + math.ceil(alpha * (x_dif / 2)))
-                ytl = int(ytl - math.ceil(alpha * (y_dif / 2)))
-                ybr = int(ybr + math.ceil(alpha * (y_dif / 2)))
+                xtl = xtl - alpha * (x_dif / 2)
+                xbr = xbr + alpha * (x_dif / 2)
+                ytl = ytl - alpha * (y_dif / 2)
+                ybr = ybr + alpha * (y_dif / 2)
 
                 # Сделаем кроп номера на футболке
                 croppped_image = img.crop((xtl, ytl, xbr, ybr))
@@ -88,9 +84,8 @@ for anno in tqdm(anno_pathes_json):
                     os.makedirs(full_path)
                     # print(f'Папка {number} создана')
 
-                res_path = full_path + "\\" + f"TV_data_{str(frame)}_{num}example.jpg"
+                name = img_name.replace(".jpeg", "")
+                res_path = full_path + "\\" + f"TV_data_{name}_{num}example.jpg"
                 num += 1
 
                 croppped_image.save(res_path)
-
-print()

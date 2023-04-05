@@ -11,6 +11,7 @@ import math
 
 
 def start():
+    print("Collecting data tv volleyball new json!")
 
     anno_pathes_json = []
     file_name = ".json"
@@ -101,3 +102,4 @@ def start():
 
 if __name__ == "__main__":
     start()
+    print()

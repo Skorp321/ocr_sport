@@ -28,6 +28,8 @@ anno_dict = {"file_name": [], "text": []}
 alpha = 0.2
 
 anno_pathses = []
+
+print("Collecting data fiba!")
 # пройдемся рекурсивно по всем папкам, начиная с absolute_path
 for root, dirs, files in os.walk(absolute_path):
     # проверяем, есть ли заданный файл в списке файлов текущей папки
@@ -91,3 +93,5 @@ for path in tqdm(anno_pathses):
                 res_path = full_path + "\\" + f"fiba_{str(num)}example.jpg"
 
                 croppped_image.save(res_path)
+
+print()

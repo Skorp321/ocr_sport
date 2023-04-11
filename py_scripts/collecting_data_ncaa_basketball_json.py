@@ -11,6 +11,9 @@ import math
 
 
 def script():
+
+    print("Collecting data NCAA basketball json!")
+
     absolute_path = "data\\NCAA\\NCAA_1_jersey"
     crop_path = "numbers\\basketball_numbers"
     img_folder_path = "NCAA\\NCAA_1_tracking\\playerTrackingFrames"
@@ -122,3 +125,4 @@ def script():
 
 if __name__ == "__main__":
     script()
+    print()

@@ -17,6 +17,8 @@ absolute_path = "data\\TV_data\\volleyball"
 # crop_path = "D:\\Datasets\\crops"
 # absolute_path = "D:\\Datasets\\TV_data"
 
+print("Collecting data tv volleyball xml!")
+
 if not os.path.exists(crop_path):
     os.makedirs(crop_path)
 
@@ -114,3 +116,5 @@ for key in tqdm(anno_pathses.keys()):
                 res_path = full_path + "\\" + f"TV_data_{str(key)}_id-{image_id}.jpg"
 
                 croppped_image.save(res_path)
+
+print()

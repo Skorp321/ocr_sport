@@ -35,6 +35,8 @@ res = {}
 
 anno_pathses = {}
 img_pathses = {}
+
+print("Collecting data tv basketball xml!")
 # пройдемся рекурсивно по всем папкам, начиная с absolute_path
 for root, dirs, files in os.walk(absolute_path):
 
@@ -113,3 +115,5 @@ for key in tqdm(anno_pathses.keys()):
                 res_path = full_path + "\\" + f"TV_data_{str(key)}_id-{image_id}.jpg"
 
                 croppped_image.save(res_path)
+
+print()

@@ -26,6 +26,7 @@ annos_list = []
 anno_dict = {"file_name": [], "text": []}
 pathes_list = []
 
+print("Collecting data tv basketball json!")
 if not os.path.exists(crop_path):
     os.makedirs(crop_path)
 
@@ -91,3 +92,5 @@ for anno in tqdm(anno_pathes_json):
                 num += 1
 
                 croppped_image.save(res_path)
+
+print()

@@ -28,6 +28,8 @@ for root, dirs, files in os.walk(absolute_path):
             # если есть, то добавляем путь в список
             anno_pathes_json.append(os.path.join(root, file))
 
+print("Collecting data basketball!")
+
 for i, anno in enumerate(anno_pathes_json):
     with open(anno, "r") as f:
         data = json.load(f)
@@ -77,3 +79,5 @@ for i, anno in enumerate(anno_pathes_json):
                     os.makedirs(full_path)
 
                 croppped_image.save(res_path)
+    print(" - - - ")
+print()

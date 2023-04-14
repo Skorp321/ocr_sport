@@ -36,7 +36,6 @@ def start():
         os.makedirs(crop_path)
 
     for root, dirs, files in os.walk(absolute_path):
-
         for file in files:
             # проверяем, есть ли заданный файл в списке файлов текущей папки
             if (file_name in file) & (".jsonl" not in file):
@@ -56,7 +55,6 @@ def start():
         frames = pd.read_json(json.dumps(data))
 
         for frame in frames["frames"]:
-
             img_name = frame["img_name"]
             anno_path = anno.replace(".json", "")
             anno_path = anno_path.replace("anno", "frames")
@@ -66,7 +64,6 @@ def start():
 
             for det in frame["detections"]:
                 if det["ocr_jersey"] != "-1":
-
                     point = det["jersey_bbox_global"]
                     number = det["ocr_jersey"]
 

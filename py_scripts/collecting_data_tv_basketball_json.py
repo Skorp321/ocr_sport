@@ -62,9 +62,7 @@ for anno in tqdm(anno_pathes_json):
         number = split_label[-1]
 
         for box in point:
-
             if number.isdigit() & (len(split_label) == 3):
-
                 xtl, ytl, xbr, ybr = (
                     int(box[0][0]),
                     int(box[0][1]),

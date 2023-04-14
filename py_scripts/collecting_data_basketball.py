@@ -38,7 +38,6 @@ for i, anno in enumerate(anno_pathes_json):
     print(f"{i + 1}ая папка из {len(anno_pathes_json)}")
 
     for i in tqdm(range(len(frames))):
-
         img_name = frames["img_name"][i]
         bboxes = frames["detections"][i]
 
@@ -52,7 +51,6 @@ for i, anno in enumerate(anno_pathes_json):
         # Создание объекта ImageDraw для рисования
 
         for detection in bboxes:
-
             ocr_jersey = detection["ocr_jersey"]
 
             if ocr_jersey != "-1":
@@ -72,7 +70,8 @@ for i, anno in enumerate(anno_pathes_json):
 
                 croppped_image = img.crop((xtl, ytl, xbr, ybr))
                 full_path = crop_path + "\\" + str(ocr_jersey)
-                res_path = full_path + "\\" f"basketball_{num}example.jpg"
+                name = img_name.replace(".jpeg", "")
+                res_path = full_path + "\\" + f"TV_data_{name}_{num}example.jpg"
                 num += 1
 
                 if not os.path.exists(full_path):

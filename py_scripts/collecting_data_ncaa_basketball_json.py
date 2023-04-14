@@ -11,13 +11,12 @@ import math
 
 
 def script():
-
     print("Collecting data NCAA basketball json!")
 
     absolute_path = "data\\NCAA\\NCAA_1_jersey"
     crop_path = "numbers\\basketball_numbers"
-    img_folder_path = "NCAA\\NCAA_1_tracking\\playerTrackingFrames"
-    cor_path = "NCAA\\NCAA_1_jersey\\data\\tracksVisualised"
+    img_folder_path = "data\\NCAA\\NCAA_1_tracking\\playerTrackingFrames"
+    cor_path = "data\\NCAA\\NCAA_1_jersey\\second_task"
 
     num = 0
     x = 0
@@ -36,14 +35,12 @@ def script():
     anno_pathses = {}
     img_pathses = {}
     # пройдемся рекурсивно по всем папкам, начиная с absolute_path
-    for root, dirs, files in os.walk(absolute_path):
-
+    for root, dirs, files in os.walk(cor_path):
         # проверяем, есть ли заданный файл в списке файлов текущей папки
 
         # (folder_name[1] in root) & ('frames' in root)  &
 
         for file in files:
-
             folder_name = os.path.split(root)
 
             if file_name in file:
@@ -51,13 +48,10 @@ def script():
                 anno_pathses[folder_name[1]] = root
 
     for root, dirs, files in os.walk(img_folder_path):
-
         for file in files:
-
             folder_name = os.path.split(root)
 
             if jpeg_name in file:
-
                 img_pathses[folder_name[1]] = root
 
     for folder, path in tqdm(anno_pathses.items()):
@@ -82,14 +76,12 @@ def script():
                 out_file = {}
 
                 if shape["shape_type"] == "rectangle":
-
                     label = shape["label"]
 
                     split_label = label.split("_")
                     number = str(split_label[-1])
 
                     if len(split_label) == 3:
-
                         [xtl, ytl], [xbr, ybr] = shape["points"]
                         # print(label, split_label, anno, img_path)
                         x_dif = np.abs(xtl - xbr)

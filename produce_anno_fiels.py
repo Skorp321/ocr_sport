@@ -9,7 +9,6 @@ file = "jpg"
 
 
 def gen_annotations():
-
     annos_list = []
     pathes_list = []
     anno_dict = {"text": [], "file_name": []}
@@ -59,6 +58,10 @@ def gen_annotations():
 
     volleyball_df = pd.DataFrame(anno_dict, index=None)
 
+    print("Number of training examples:", basketball_df.shape[0])
+    print("Number of testing examples:", streetball_df.shape[0])
+    print("Number of validation examples:", volleyball_df.shape[0])
+
     train_voll, test_voll = train_test_split(volleyball_df, test_size=0.2, shuffle=True)
     train_strit, test_strit = train_test_split(
         streetball_df, test_size=0.2, shuffle=True
@@ -78,7 +81,6 @@ def gen_annotations():
 
 
 if __name__ == "__main__":
-
     if not os.path.exists(basketball_path):
         os.makedirs(basketball_path)
 

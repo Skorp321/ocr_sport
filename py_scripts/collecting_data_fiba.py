@@ -38,7 +38,6 @@ for root, dirs, files in os.walk(absolute_path):
         anno_pathses.append(os.path.join(root, file_name))
 
 for path in tqdm(anno_pathses):
-
     # Загрузим XML файл
     tree = ET.parse(path)
 
@@ -47,17 +46,15 @@ for path in tqdm(anno_pathses):
 
     # Проитерируемся по дочерним элементам корня
     for image in root.findall("image"):
-
         image_id = image.get("id")
-        file_name = image.get("name")
+        file_n = image.get("name")
         # file_name = file_name.replace('/', '\\')
-        file_name = os.path.join(absolute_path, file_name)
+        file_name = os.path.join(absolute_path, file_n)
         if "fiba3x3/images/331/" in file_name:
             file_name = file_name.replace("fiba3x3/images/331", "frames")
         file_name = file_name.replace("frames", "frames_135")
         # Переберем все baundingbox`s
         for box in image.findall("box"):
-
             image = Image.open(file_name)
 
             label = box.get("label")
@@ -90,7 +87,8 @@ for path in tqdm(anno_pathses):
                     os.makedirs(full_path)
                     # print(f'Папка {number} создана')
 
-                res_path = full_path + "\\" + f"fiba_{str(num)}example.jpg"
+                name = file_n.replace(".jpeg", "")
+                res_path = full_path + "\\" + f"TV_data_{name}_{num}example.jpg"
 
                 croppped_image.save(res_path)
 

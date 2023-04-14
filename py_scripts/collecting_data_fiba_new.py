@@ -47,7 +47,6 @@ for anno in tqdm(anno_pathes_json):
     frames = pd.read_json(json.dumps(data))
 
     for frame in frames["frames"]:
-
         img_name = frame["img_name"]
         anno_path = anno.replace(".json", "")
         anno_path = anno_path.replace("anno", "jersey_frames")
@@ -57,7 +56,6 @@ for anno in tqdm(anno_pathes_json):
 
         for det in frame["detections"]:
             if det["ocr_jersey"] != "-1":
-
                 point = det["jersey_bbox_global"]
                 number = det["ocr_jersey"]
 

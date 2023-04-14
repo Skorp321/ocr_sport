@@ -39,7 +39,6 @@ anno_pathses = {}
 img_pathses = {}
 # пройдемся рекурсивно по всем папкам, начиная с absolute_path
 for root, dirs, files in os.walk(absolute_path):
-
     # проверяем, есть ли заданный файл в списке файлов текущей папки
     folder_name = os.path.split(root)
     # (folder_name[1] in root) & ('frames' in root)  &
@@ -49,7 +48,6 @@ for root, dirs, files in os.walk(absolute_path):
         anno_pathses[folder_name[1]] = os.path.join(root, file_name)
 
     for file in files:
-
         if (
             (jpeg_name in file)
             & (folder_name[1] not in img_pathses)
@@ -59,7 +57,6 @@ for root, dirs, files in os.walk(absolute_path):
             img_pathses[folder_name[1]] = root
 
 for key in tqdm(anno_pathses.keys()):
-
     # Загрузим XML файл
     tree = ET.parse(anno_pathses[key])
 
@@ -68,7 +65,6 @@ for key in tqdm(anno_pathses.keys()):
 
     # Проитерируемся по дочерним элементам корня
     for image in root.findall("image"):
-
         image_id = image.get("id")
         file_name = image.get("name")
 
@@ -81,7 +77,6 @@ for key in tqdm(anno_pathses.keys()):
 
         # Переберем все baundingbox`s
         for box in image.findall("box"):
-
             image = Image.open(file_name)
 
             label = box.get("label")

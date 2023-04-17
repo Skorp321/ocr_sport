@@ -12,3 +12,5 @@ for_test
 for_train
 .env
 .vscode
+workenv
+logs
